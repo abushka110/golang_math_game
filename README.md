@@ -1,4 +1,4 @@
-# CLI Math Game in Go
+# Math Game in Go
 
 A simple command-line game where the player solves math problems as fast as possible.
 
