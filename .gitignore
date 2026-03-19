@@ -1,0 +1,28 @@
+---
+
+# `.gitignore`
+
+```gitignore
+# Binaries
+*.exe
+*.out
+*.test
+
+# Build artifacts
+/bin/
+/dist/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Go specific
+*.mod
+*.sum
+
+# Logs
+*.log
