@@ -1,8 +1,10 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"math/rand"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -83,4 +85,54 @@ func (g *Game) PrintResult() {
 	fmt.Println("\n--- RESULT ---")
 	fmt.Printf("Total time: %v\n", totalTime)
 	fmt.Printf("Total score: %d\n", scoreFromTime)
+}
+
+// startGame handles the game flow: name input, gameplay, and ranking save
+func startGame() {
+	players := loadRanking()
+
+	var name string
+	fmt.Print("Enter your name: ")
+	fmt.Scan(&name)
+
+	if nameExists(players, name) {
+		fmt.Println("Name already used!")
+		return
+	}
+
+	reader := bufio.NewReader(os.Stdin)
+
+	start := time.Now()
+
+	// Create and start the game
+	game := NewGame()
+	game.Start()
+
+	// Main game loop
+	for !game.IsFinished() {
+		question, correct := game.GenerateQuestion()
+
+		fmt.Println(question)
+
+		input, _ := reader.ReadString('\n')
+
+		isCorrect := game.CheckAnswer(input, correct)
+
+		game.Update(isCorrect)
+	}
+
+	game.PrintResult()
+
+	duration := int(time.Since(start).Seconds())
+
+	newPlayer := Player{
+		ID:   len(players) + 1,
+		Name: name,
+		Time: duration,
+	}
+
+	players = append(players, newPlayer)
+	saveRanking(players)
+
+	fmt.Printf("Your time saved: %d seconds!\n", duration)
 }

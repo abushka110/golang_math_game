@@ -1,42 +1,30 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
-	"strings"
 )
 
 func main() {
-	fmt.Println("Hello gamer!")
+	for {
+		fmt.Println("\n=== MENU ===")
+		fmt.Println("1. Start a game")
+		fmt.Println("2. Ranking")
+		fmt.Println("3. Exit")
 
-	reader := bufio.NewReader(os.Stdin)
+		var choice int
+		fmt.Print("Choose option: ")
+		fmt.Scan(&choice)
 
-	fmt.Print("Want to start a game? (y/n): ")
-	answer, _ := reader.ReadString('\n')
-
-	answer = strings.TrimSpace(strings.ToLower(answer))
-
-	if answer != "y" {
-		fmt.Println("Goodbye!")
-		return
+		switch choice {
+		case 1:
+			startGame()
+		case 2:
+			showRanking()
+		case 3:
+			fmt.Println("Goodbye!")
+			return
+		default:
+			fmt.Println("Invalid choice")
+		}
 	}
-
-	game := NewGame()
-	game.Start() // старт таймера
-
-	// Основний ігровий цикл
-	for !game.IsFinished() {
-		question, correct := game.GenerateQuestion()
-
-		fmt.Println(question)
-
-		input, _ := reader.ReadString('\n')
-
-		isCorrect := game.CheckAnswer(input, correct)
-
-		game.Update(isCorrect)
-	}
-
-	game.PrintResult()
 }

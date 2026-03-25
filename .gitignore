@@ -1,28 +1,44 @@
----
-
-# `.gitignore`
-
-```gitignore
-# Binaries
+# Compiled binaries and executables
 *.exe
 *.out
 *.test
+math-game
+math-game.exe
 
-# Build artifacts
+# Build artifacts and directories
 /bin/
 /dist/
+*.o
+*.a
 
-# OS files
+# OS-specific files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
 Thumbs.db
+ehthumbs.db
 
-# IDE files
+# IDE and editor files
 .vscode/
 .idea/
+*.swp
+*.swo
+*~
+.sublime-project
+.sublime-workspace
 
 # Go specific
-*.mod
-*.sum
+go.sum
 
-# Logs
+# Logs and temporary files
 *.log
+*.tmp
+
+# Test coverage
+*.coverprofile
+
+# Backup files
+*.bak
+*.backup
